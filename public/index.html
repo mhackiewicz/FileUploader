@@ -1,0 +1,142 @@
+<html lang="en" >
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- Angular Material style sheet -->
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css"/>
+        <style>
+            .sys-info span {
+                color:red;
+            }
+        </style>
+    </head>
+    <body ng-app="fileUpload" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>
+                        Angular Node File Upload
+                    </span>
+                </h2>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <br/>
+            <br/>
+            <section layout="row"  layout-sm="column" layout-align="center center" layout-wrap>
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <h3>
+                                Załaduj plik
+                            </h3>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="start center">
+                    </md-card-actions>
+                    <md-card-content>
+                        <br/>
+                        <br/>
+                        <form  ng-controller="MyCtrl as up" name="up.upload_form">
+                            <input
+                                type="file"
+                                ngf-select
+                                ng-model="up.file"
+                                name="file"
+                                ngf-pattern="'image/*'"
+                                accept="image/*"
+                                ngf-max-size="20MB"
+                                />
+                                <br/>
+                                <br/>
+                                <br/>
+                                {{up.message}}
+                                <div ng-bind-html="up.sysinfo"></div>                                
+                                <div ng-show="up.file">
+                                    <img id="resultImage" style="width:200px;" ng-show="!!up.file" ngf-thumbnail="up.file"/>
+
+                                    <i ng-show="up.upload_form.file.$error.required">
+                                        *wymagany
+                                    </i>
+                                    <br/>
+                                    <i ng-show="up.upload_form.file.$error.maxSize">
+                                        File too large
+                                        {{up.file.size / 1000000|number:1}}MB: max 20M
+                                    </i>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    Co chcesz zrobic ?
+                                    <md-switch ng-model="up.modeRotate90" aria-label="Switch 1">
+                                        Obrót 90 stopnie
+                                    </md-switch>
+                                    <md-switch ng-model="up.modeRotate180" aria-label="Switch 2">
+                                        Obrót 180 stopnie
+                                    </md-switch>
+                                    <md-switch ng-model="up.modeSephia" aria-label="Switch 3">
+                                        Sephia
+                                    </md-switch>
+                                    <md-switch ng-model="up.modeGausse" aria-label="Switch 4">
+                                        Rozmycie Gaussa
+                                        <small>
+                                            (uwaga wolne!)
+                                        </small>
+                                    </md-switch>
+                                    <md-switch ng-model="up.modeBlack" aria-label="Switch 5">
+                                        Czarno/białe
+                                    </md-switch>
+                                    <md-switch ng-model="up.modeInverse" aria-label="Switch 6">
+                                        Inverse
+                                    </md-switch>
+                                </div>
+                                <!--
+                                    Multiple files
+                                    <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">
+                                        Select
+                                    </div>
+                                    Drop files:
+                                    <div ngf-drop ng-model="up.files" class="drop-box">
+                                        Drop
+                                    </div>
+                                -->
+                                <br/>
+                                <br/>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="up.submit()">
+                                    Wyślij
+                                </md-button>
+                                <md-button class="md-raised md-primary" ng-click="up.getMessage()">
+                                    Get message
+                                </md-button>
+                                <md-button class="md-raised md-primary" ng-click="up.getSystemInfo()">
+                                    System Info
+                                </md-button>
+                                <p>
+                                    {{up.progress}}
+                                </p>
+                            </form>
+                        </md-card-content>
+                    </md-card>
+                </section>
+            </md-content>
+            <!-- Angular Material requires Angular.js Libraries -->
+            <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+            </script>
+            <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js">
+            </script>
+            <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js">
+            </script>
+            <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js">
+            </script>
+            <script type="text/javascript" src="libs/ng-file-upload/dist/ng-file-upload.min.js">
+            </script>
+            <script type="text/javascript" src="libs/ng-file-upload/dist/ng-file-upload-shim.min.js">
+            </script>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js">
+            </script>
+            
+            <!-- Angular Material Library -->
+            <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js">
+            </script>
+            <script type="text/javascript" src="main.js">
+            </script>
+        </body>
+    </html>
