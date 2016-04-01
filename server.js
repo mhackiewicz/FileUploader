@@ -114,8 +114,8 @@
             // });
         });
     });
-    
-    app.listen('3000', function() {
+    var port = process.env.PORT || 8080;
+    app.listen(port, function() {
         console.log('Server wystartowal....');
     });
 
